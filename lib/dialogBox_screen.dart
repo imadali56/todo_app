@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-
 import 'buttons_screen.dart';
 
 class DialogboxScreen extends StatelessWidget {
-  final controller;
-  VoidCallback onSave;
-  VoidCallback onCancel;
+  final TextEditingController titleController; // Title ke liye
+  final TextEditingController descController;  // Description ke liye
+  final VoidCallback onSave;
+  final VoidCallback onCancel;
+
   DialogboxScreen({
     super.key,
-    required this.controller,
+    required this.titleController,
+    required this.descController,
     required this.onSave,
     required this.onCancel,
   });
@@ -17,31 +19,42 @@ class DialogboxScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.yellow[300],
-      shape: RoundedRectangleBorder(),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       content: Container(
-        height: 114,
+        height: 220,
         child: Column(
           children: [
+            // Title Input
             TextField(
-              controller: controller,
+              controller: titleController,
               decoration: InputDecoration(
-                hintText: 'Add a new Task!',
+                hintText: 'Enter Task Title',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: Row(
-                children: [
-                  ButtonsScreen(text: 'Save', onPressed: onSave),
-                  SizedBox(width: 15),
 
-                  ButtonsScreen(text: 'Cancel', onPressed: onCancel),
-                ],
+            SizedBox(height: 15),
+
+            TextField(
+              controller: descController,
+              decoration: InputDecoration(
+                hintText: 'Enter Description',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
+            ),
+
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ButtonsScreen(text: 'Save', onPressed: onSave),
+                const SizedBox(width: 15),
+                ButtonsScreen(text: 'Cancel', onPressed: onCancel),
+              ],
             ),
           ],
         ),
