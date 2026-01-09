@@ -38,11 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void saveNewTasks() {
     if (_titleController.text.isNotEmpty) {
       setState(() {
-        db.toDo.add([
-          _titleController.text,
-          _descController.text,
-          false
-        ]);
+        db.toDo.add([_titleController.text, _descController.text, false]);
         _titleController.clear();
         _descController.clear();
       });
@@ -66,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
               db.toDo[index] = [
                 _titleController.text,
                 _descController.text,
-                db.toDo[index][2]
+                db.toDo[index][2],
               ];
               _titleController.clear();
               _descController.clear();
@@ -129,18 +125,18 @@ class _HomeScreenState extends State<HomeScreen> {
       body: db.toDo.isEmpty
           ? const Center(child: Text("No tasks found."))
           : ListView.builder(
-        itemCount: db.toDo.length,
-        itemBuilder: (context, index) {
-          return TodoTile(
-            taskname: db.toDo[index][0].toString(),
-            description: db.toDo[index][1].toString(),
-            taskCompleted: db.toDo[index][2],
-            onChanged: (value) => checkBoxChanged(value, index),
-            deleteFunction: (context) => deleteTask(index),
-            onTap: () => editTask(index),
-          );
-        },
-      ),
+              itemCount: db.toDo.length,
+              itemBuilder: (context, index) {
+                return TodoTile(
+                  taskname: db.toDo[index][0].toString(),
+                  description: db.toDo[index][1].toString(),
+                  taskCompleted: db.toDo[index][2],
+                  onChanged: (value) => checkBoxChanged(value, index),
+                  deleteFunction: (context) => deleteTask(index),
+                  onTap: () => editTask(index),
+                );
+              },
+            ),
     );
   }
 }
